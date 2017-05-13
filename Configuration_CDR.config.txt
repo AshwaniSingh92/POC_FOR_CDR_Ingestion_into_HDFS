@@ -1,0 +1,23 @@
+#Assuming Hadoop and Flume are already configured on the machine
+
+cdr.sources = src
+cdr.channels = ch1
+cdr.sinks = snk
+
+cdr.sources.src.type = spooldir
+cdr.sources.src.basenameHeader = true
+cdr.sources.src.spoolDir = path to your spooling directory
+
+cdr.channels.ch1.type = memory
+
+cdr.sinks.snk.type = hdfs
+cdr.sinks.snk.hdfs.path = path on the hdfs
+cdr.sinks.snk.hdfs.filePrefix = %{basename}
+cdr.sinks.snk.hdfs.fileType = DataStream
+
+
+cdr.sources.src.channels = ch1
+cdr.sinks.snk.channel = ch1
+
+
+#flume-ng agent -n cdr -c conf -f path to your config file
